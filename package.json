@@ -1,20 +1,21 @@
 {
   "name": "myProject",
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only"
+    "build": "run-p type-check build-only",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix
-    --ignore-path .gitignore",
-    "build-only": "vite build"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "build-only": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@mdi/font": "^7.0.96",
+    "axios": "^1.1.3",
     "roboto-fontface": "^0.10.0",
-    "vue": "^3.2.37",
+    "vue": "3.2.45",
     "vuetify": "^3.0.1",
     "webfontloader": "^1.6.28"
   },
@@ -22,7 +23,7 @@
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/node": "^18.11.9",
     "@types/webfontloader": "^1.6.35",
-    "@vitejs/plugin-vue": "^3.1.0",
+    "@vitejs/plugin-vue": "^3.2.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.2",
     "@vue/tsconfig": "^0.1.3",
@@ -30,9 +31,9 @@
     "eslint-plugin-vue": "^9.7.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
-    "typescript": "^4.6.4",
-    "vite": "^3.1.0",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4",
     "vite-plugin-vuetify": "^1.0.0",
-    "vue-tsc": "^0.40.4"
+    "vue-tsc": "^1.0.9"
   }
 }
