@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, unref } from "vue";
+import { ref, unref, onMounted } from "vue";
 
 export interface Props {
   name: string;
@@ -10,7 +10,7 @@ export interface Props {
   step: number;
 }
 export interface Emits {
-  (e: "update", value: number): void;
+  (e: "update:modelValue", name: string, value: number): void;
 }
 
 const props = defineProps<Props>();
@@ -18,7 +18,9 @@ const emit = defineEmits<Emits>();
 
 const value = ref(props.modelValue);
 
-const onUpdate = () => emit("update", unref(value));
+function onUpdate() {
+  emit("update:modelValue", props.name, value.value);
+}
 
 onMounted(() => {
   console.log(JSON.stringify(props));
@@ -43,6 +45,7 @@ const decrement = () => {
         density="compact"
         hide-details
         variant="outlined"
+        @change="onUpdate"
       >
       </v-text-field>
     </v-card-title>
@@ -55,15 +58,14 @@ const decrement = () => {
         :max="max"
         :step="step"
       >
-        <template v-slot:prepend>
+        <template #prepend>
           <v-icon @click="decrement"> mdi-minus </v-icon>
         </template>
 
-        <template v-slot:append>
+        <template #append>
           <v-icon @click="increment"> mdi-plus </v-icon>
         </template>
-        ></v-slider
-      >
+      </v-slider>
     </v-card-text>
   </v-card>
 </template>

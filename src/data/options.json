@@ -1,10 +1,16 @@
 [
     {
-        "name": "nbOfSteps",
-        "label": "Number of Steps",
-        "value": 1,
-        "min": 1,
-        "max": 10000,
-        "step": 1
+        "name": "options",
+        "label": "Options",
+        "parameters": [
+            {
+                "name": "nbOfSteps",
+                "label": "Number of Steps",
+                "value": 1,
+                "min": 1,
+                "max": 10000,
+                "step": 1
+            }
+        ]
     }
 ]

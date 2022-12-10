@@ -1,48 +1,64 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useStore } from "@/stores";
-import type { ParameterArgs } from "@/data/types";
-import DataForm from "@/components/DataForm.vue";
-import DataViewer from "@/components/DataViewer.vue";
+import type { Model, Policy, Options } from "@/data/types";
+import DataQueryFormGroupList from "@/components/DataQueryFormGroupList.vue";
+import BarChart from "@/components/BarChart.vue";
+import fetchMockData from "@/scripts/fetchMockData";
 
 const { models, policies, options } = useStore();
-const selectedModel = ref(models[0]);
-const selectedPolicy = ref(policies[0]);
 
-function makeParameter(args: ParameterArgs) {
-  return {
-    modelValue: args.value,
-    ...args,
-  };
-}
+let dataQueryParams = {
+  model: {
+    name: "",
+    parameterValues: [],
+  },
+  policy: {
+    name: "",
+    parameterValues: [],
+  },
+  options: [],
+};
 
-const makeFormProps = computed(() => ({
-  items: [
-    {
-      title: "Model",
-      descBrief: "Environment from which actions are sampled",
-      selectionItems: models,
-      value: "model",
-    },
-    {
-      title: "Policy",
-      descBrief: "Strategy used when choosing the next action to sample",
-      selectionItems: policies,
-      value: "policy",
-    },
-    {
-      title: "Options",
-      descBrief: "Options regarding the data collection process",
-      selectionItems: [{ parameters: options }],
-      showSelection: false,
-      value: "option",
-    },
-  ],
-}));
+const gModels = {
+  name: "Model",
+  descBrief: "Environment from which actions are sampled",
+  showSelection: true,
+  items: models,
+};
+const gPolicies = {
+  name: "Policy",
+  descBrief: "Strategy used when choosing the next action to sample",
+  showSelection: true,
+  items: policies,
+};
+const gOptions = {
+  name: "Options",
+  descBrief: "Options regarding the data collection process",
+  showSelection: false,
+  items: options,
+};
+
+const chartOptions = {
+  responsive: true,
+};
 </script>
 
 <template>
-  <DataForm v-bind="makeFormProps"> </DataForm>
+  <DataQueryFormGroupList
+    :models="gModels"
+    :policies="gPolicies"
+    :options="gOptions"
+  ></DataQueryFormGroupList>
 
-  <DataViewer></DataViewer>
+  <v-divider></v-divider>
+
+  <Suspense>
+    <BarChart
+      :chartDataGetter="fetchMockData"
+      :chartOptions="chartOptions"
+    ></BarChart>
+
+    <template #fallback> Loading... </template>
+  </Suspense>
 </template>

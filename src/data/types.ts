@@ -1,18 +1,31 @@
 export type ParameterArgs = {
-    name: string,
-    label: string,
-    value: number,
-    min?: number,
-    max?: number,
-    step: number,
-}
+    name: string;
+    label: string;
+    value: number;
+    min?: number;
+    max?: number;
+    step: number;
+};
 
 export type Parameter = Required<ParameterArgs>;
 
-export type Model = {
-    name: string,
-    label: string,
-    parameters: ParameterArgs[],
+type dataModel = {
+    name: string;
+    label: string;
+    parameters: Parameter[];
+};
+
+export type Model = dataModel;
+export type Policy = dataModel;
+export type Options = dataModel;
+
+export interface Series {
+    data: number[];
+    label?: string;
+    backgroundColor?: string;
 }
 
-export type Policy = Model;
+export interface ChartData {
+    labels: string[];
+    datasets: Series[];
+}
